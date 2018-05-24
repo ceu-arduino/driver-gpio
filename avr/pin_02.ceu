@@ -1,0 +1,18 @@
+input bool PIN_02;
+
+#ifdef GPIO_PIN02_PULL
+{ pinMode(2, GPIO_PIN_02_PULL); }
+#endif
+
+#ifndef GPIO_PIN_02_MODE
+#define GPIO_PIN_02_MODE CHANGE
+#endif
+
+{
+    EICRA = (EICRA & ~((1<<ISC00) | (1<<ISC01))) | (GPIO_PIN_02_MODE << ISC00);
+    EIMSK |= (1<<INT0);
+}
+
+spawn async/isr [_INT0_vect] do
+    emit PIN_02(_digitalRead(2) as bool);
+end

@@ -1,0 +1,23 @@
+#if 1
+#define PIN PIN_02
+//#define GPIO_PIN_02_MODE _LOW
+#include "pin_02.ceu"
+#elif 0
+#define PIN PIN_03
+//#define GPIO_PIN_03_MODE _LOW
+#include "pin_03.ceu"
+#elif 0
+#define PIN PIN_10
+#include "pin_10.ceu"
+#endif
+
+output bool PIN_13;
+
+emit PIN_13(off);
+
+var on/off v = off;
+loop do
+    await PIN;
+    v = not v;
+    emit PIN_13(v);
+end
