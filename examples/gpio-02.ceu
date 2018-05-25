@@ -1,4 +1,4 @@
-#include "wclock.ceu"
+#include "timer1.ceu"
 
 #if 1
 #define PIN PIN_02
