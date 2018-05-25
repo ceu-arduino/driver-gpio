@@ -13,12 +13,6 @@
 
 output on/off PIN_13;
 
-{
-    //S.begin(9600);
-    //S.println("Ceu - TCCRT5000 - 01");
-    //_DELAY(20);
-}
-
 var bool v;
 every v in PIN do
     emit PIN_13(not v);
