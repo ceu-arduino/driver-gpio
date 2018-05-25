@@ -1,11 +1,12 @@
 #if 1
 #define PIN PIN_02
-//#define GPIO_PIN_02_MODE _LOW
 #include "pin_02.ceu"
 #elif 0
 #define PIN PIN_03
-//#define GPIO_PIN_03_MODE _LOW
 #include "pin_03.ceu"
+#elif 0
+#define PIN PIN_04
+#include "pin_04.ceu"
 #elif 0
 #define PIN PIN_10
 #include "pin_10.ceu"
