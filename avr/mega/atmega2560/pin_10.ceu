@@ -1,19 +1,25 @@
-input bool PIN_10;
+#include "gpio.ceu"
+
+input high/low PIN_10;
 
 // PIN_10 is PCINT4
 // PCINT4 must be enabled on PCIE0
 // Pin Change Interrupt Request is executed from the PCI0 Interrupt Vector
 
+native/const _PCINT0_vect;
+
 {
+    pinMode(10, INPUT_PULLUP);
+
     bitSet(PCMSK0, PCINT4);
     bitSet(PCICR, PCIE0);
 
-
     //bitSet(EICRA, ISC00);   // edge of INT0 generates an interrupt request
     //bitSet(PCIFR, PCIF0);
-    pinMode(10, INPUT);
 }
 
 spawn async/isr [_PCINT0_vect, 0] do
-    emit PIN_10(_digitalRead(10) as bool);
+    var high/low v = _digitalRead(10) as high/low;
+    emit PIN_IN(10, v);
+    emit PIN_10(v);
 end

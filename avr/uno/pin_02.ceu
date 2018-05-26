@@ -1,18 +1,17 @@
-input bool PIN_02;
+#include "gpio.ceu"
 
-#ifdef GPIO_PIN02_PULL
-{ pinMode(2, GPIO_PIN_02_PULL); }
-#endif
+input high/low PIN_02;
 
-#ifndef GPIO_PIN_02_MODE
-#define GPIO_PIN_02_MODE CHANGE
-#endif
+native/const _INT0_vect;
 
 {
-    EICRA = (EICRA & ~((1<<ISC00) | (1<<ISC01))) | (GPIO_PIN_02_MODE << ISC00);
+    pinMode(2, INPUT_PULLUP);
+    EICRA = (EICRA & ~((1<<ISC00) | (1<<ISC01))) | (CHANGE << ISC00);
     EIMSK |= (1<<INT0);
 }
 
 spawn async/isr [_INT0_vect] do
-    emit PIN_02(_digitalRead(2) as bool);
+    var high/low v = _digitalRead(2) as high/low;
+    emit PIN_IN(2, v);
+    emit PIN_02(v);
 end

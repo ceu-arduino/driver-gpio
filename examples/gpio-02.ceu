@@ -1,18 +1,15 @@
 #include "wclock.ceu"
+#include "gpio.ceu"
 
-#if 1
+#include "pin_02.ceu"       // UNO
+//#include "pin_03.ceu"       // UNO
+//#include "pin_04.ceu"       // UNO
+//#include "pin_10.ceu"     // MEGA
+
 #define PIN PIN_02
-#include "pin_02.ceu"
-#elif 0
-#define PIN PIN_03
-#include "pin_03.ceu"
-#elif 0
-#define PIN PIN_04
-#include "pin_04.ceu"
-#elif 0
-#define PIN PIN_10
-#include "pin_10.ceu"
-#endif
+//#define PIN PIN_03
+//#define PIN PIN_04
+//#define PIN PIN_10
 
 output bool PIN_13;
 

@@ -1,14 +1,21 @@
-input bool PIN_04;
+#include "gpio.ceu"
+
+input high/low PIN_04;
+
+native/const _PCINT2_vect;
 
 { 
+    pinMode (4, INPUT_PULLUP);
+
     // https://arduino.stackexchange.com/questions/1784/how-many-interrupt-pins-can-an-uno-handle
     // pin change interrupt (example for D4)
     bitSet(PCMSK2, PCINT20);  // want pin 4
     bitSet(PCIFR,  PCIF2);    // clear any outstanding interrupts
     bitSet(PCICR,  PCIE2);    // enable pin change interrupts for D0 to D7
-    pinMode (4, INPUT_PULLUP);
 }
 
 spawn async/isr [_PCINT2_vect] do
-    emit PIN_04(_digitalRead(2) as bool);
+    var high/low v = _digitalRead(4) as high/low;
+    emit PIN_IN(4, v);
+    emit PIN_04(v);
 end

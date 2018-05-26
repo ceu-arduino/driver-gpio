@@ -1,24 +1,15 @@
-#if 1
-#define PIN PIN_02
-#include "pin_02.ceu"
-#elif 0
-#define PIN PIN_03
-#include "pin_03.ceu"
-#elif 0
-#define PIN PIN_04
-#include "pin_04.ceu"
-#elif 0
-#define PIN PIN_10
-#include "pin_10.ceu"
-#endif
+#include "gpio.ceu"
 
-output bool PIN_13;
+#include "pin_02.ceu"       // UNO
+#include "pin_03.ceu"       // UNO
+#include "pin_04.ceu"       // UNO
+//#include "pin_10.ceu"     // MEGA
 
-emit PIN_13(off);
+output high/low PIN_13;
+emit PIN_OUT(13, low);
 
-var on/off v = off;
-loop do
-    await PIN;
-    v = not v;
-    emit PIN_13(v);
+var int pin;
+var high/low v;
+every (pin,v) in PIN_IN do
+    emit PIN_OUT(13, v);
 end
