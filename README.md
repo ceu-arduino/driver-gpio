@@ -15,8 +15,8 @@
 input  high/low PIN_XX;             // digital input  (e.g., `input  high/low PIN_02`)
 output high/low PIN_XX;             // digital output (e.g., `output high/low PIN_13`)
 
-input  (int, high/low) PIN_IN;      // group input
-output (int, high/low) PIN_OUT;     // group output
+input  (int, high/low) PIN_IN;      // group digital input
+output (int, high/low) PIN_OUT;     // group digital output
 
 output u8 PWM_XX;                   // PWM output (e.g., `output u8 PWM_06`)
 ```
@@ -32,7 +32,7 @@ In Céu-Arduino, a digital pin must be [declared][declaration] as either `input`
 or `output` external event, e.g.:
 
 ```
-input  high/low PIN_02;     // pin-2  is used as input
+input  high/low PIN_02;     // pin-2  is used as digital input
 output high/low PIN_13;     // pin-13 is used as digital output
 output u8       PWM_06;     // pin-6  is used as PWM output
 ```
@@ -74,8 +74,8 @@ To use GPIO pins, a program must always include `gpio.ceu`:
 #include "gpio.ceu"
 ```
 
-To use a pin as an `input` event, a program must include the corresponding
-driver (if available).
+To use a pin as a digital `input` event, a program must include the
+corresponding driver (if available).
 For instance, an Arduino UNO uses the `ATmega328p` MCU, which supports
 interrupts on pin 2:
 
@@ -94,50 +94,67 @@ group.
 
 #### PIN_XX
 
-An individual input pin is of type `high/low` and carries the new changed pin
-state, e.g.:
+An individual digital input pin carries its new changed state, e.g.:
 
 ```
 input high/low PIN_02;
 ```
 
+Arguments:
+
+1. `high/low`: new state of the pin
+
 #### PIN_IN
 
-A group input is of type `(int, high/low)` and carries the pin that changed and
-its new state:
+A group digital input carries the pin that changed and its new state:
 
 ```
 input (int, high/low) PIN_IN;
 ```
 
+Arguments:
+
+1. `int`:      pin that changed
+2. `high/low`: its new state
+
 ### Output
 
 ### PIN_XX
 
-An individual digital output pin is of type `high/low` and carries the new pin
-state to change, e.g.:
+An individual digital output pin carries its new state to change, e.g.:
 
 ```
 output high/low PIN_13;
 ```
 
+Arguments:
+
+1. `high/low`: new state of the pin
+
 ### PIN_OUT
 
-A group digital output is of type `(int, high/low)` and carries the pin to
-change and its new state:
+A group digital output and carries the pin to change and its new state:
 
 ```
 output (int, high/low) PIN_OUT;
 ```
 
+Arguments:
+
+1. `int`:      pin to change
+2. `high/low`: its new state
+
 ### PWM_XX
 
-An individual PWM output pin is of type `u8` and carries the new pin value to
-change, e.g.:
+An individual PWM output pin carries its new value to change, e.g.:
 
 ```
 output u8 PWM_06;
 ```
+
+Arguments:
+
+1. `u8`: new value of the pin
 
 ## Examples
 
@@ -147,9 +164,9 @@ Whenever `PIN_02` changes, copy its changed value to `PIN_13`:
 
 ```
 #include "gpio.ceu"
-#include "pin_02.ceu"               // already declares `PIN_02` as input
+#include "pin_02.ceu"               // already declares `PIN_02` as digital input
 
-output high/low PIN_13;             // declares `PIN_13` as output
+output high/low PIN_13;             // declares `PIN_13` as digital output
 emit PIN_13(_digitalRead(2));       // copy initial state from `PIN_02` to `PIN_13`
 
 loop do
@@ -166,11 +183,11 @@ pin `11`, `12`, or `13`, respectively:
 ```
 #include "gpio.ceu"             // already declares `PIN_IN` and `PIN_OUT`
 
-#include "pin_02.ceu"           // already declares `PIN_XX` as input
+#include "pin_02.ceu"           // already declares `PIN_XX` as digital input
 #include "pin_03.ceu"
 #include "pin_04.ceu"
 
-output high/low PIN_11;         // declares `PIN_XX` as output
+output high/low PIN_11;         // declares `PIN_XX` as digital output
 output high/low PIN_12;
 output high/low PIN_13;
 
