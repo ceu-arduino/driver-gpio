@@ -19,7 +19,7 @@ native/const _PCINT0_vect;
 }
 
 spawn async/isr [_PCINT0_vect, 0] do
-    var high/low v = _digitalRead(10) as high/low;
+    var high/low v = _digitalRead(10);
     emit PIN_IN(10, v);
     emit PIN_10(v);
 end

@@ -11,7 +11,7 @@ native/const _INT1_vect;
 }
 
 spawn async/isr [_INT1_vect] do
-    var high/low v = _digitalRead(3) as high/low;
+    var high/low v = _digitalRead(3);
     emit PIN_IN(3, v);
     emit PIN_03(v);
 end
