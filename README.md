@@ -1,5 +1,28 @@
 # GPIO (General-Purpose Input/Output)
 
+## Summary
+
+- Includes
+
+```
+#include "gpio.h"               // must always be included
+#include "pin_XX.h"             // include for input pins (e.g., `#include "pin_02.ceu"`")
+```
+
+- Events
+
+```
+input  high/low PIN_XX;         // digital input (e.g.,  `input high/low PIN_02`)
+output high/low PIN_XX;         // digital output (e.g., `output high/low PIN_13`)
+
+input  (int, high/low) PIN_IN;  // group input  (`int` is the changed pin)
+output (int, high/low) PIN_OUT; // group output (`int` is the pin to change)
+
+output u8 PWM_XX;               // PWM output (e.g., `output u8 PWM_06`)
+```
+
+## Introduction
+
 A GPIO pin can be controlled as either an `input` or `output` pin:
 - Input digital pins are readable as `high` or `low`.
 - Output digital pins are writable as `high` or `low`.
