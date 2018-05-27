@@ -1,10 +1,10 @@
 # GPIO (General-Purpose Input/Output)
 
-A GPIO can be controlled as either an `input` or `output` digital pin:
+A GPIO pin can be controlled as either an `input` or `output` digital pin:
 - Input pins are readable as `high` or `low`.
 - Output pins are writable as `high` or `low`.
 
-In Céu-Arduino, a digital pin must be [declared](declaration) as either `input`
+In Céu-Arduino, a digital pin must be [declared][declaration] as either `input`
 or `output` external event, e.g.:
 
 ```
@@ -12,7 +12,7 @@ input  high/low PIN_02;     // pin-2  is used as input
 output high/low PIN_13;     // pin-13 is used as output
 ```
 
-A pin can be controlled by an [await](await) or [emit](emit) statement
+A pin can be controlled by an [await][await] or [emit][emit] statement
 depending if it is declared as `input` or `output`, respectively.
 
 An `await` halts the running trail until the pin changes its state (i.e., from
@@ -40,9 +40,9 @@ Note that the state of `output` pins can also be read.
 [await]:       http://fsantanna.github.io/ceu/out/manual/v0.30/statements/#event
 [emit]:        http://fsantanna.github.io/ceu/out/manual/v0.30/statements/#events_1
 
-## Include
+## Includes
 
-To use GPIO, a program must always include `gpio.ceu`:
+To use GPIO pins, a program must always include `gpio.ceu`:
 
 ```
 #include "gpio.ceu"
@@ -51,7 +51,7 @@ To use GPIO, a program must always include `gpio.ceu`:
 To use a pin as an `input` event, a program must include the corresponding
 driver (if available).
 For instance, an Arduino UNO uses the `ATmega328p` MCU, which supports
-interrupts on `pin 2`:
+interrupts on pin 2:
 
 ```
 #include "pin_02.ceu"
@@ -60,7 +60,7 @@ interrupts on `pin 2`:
 ## Events
 
 Céu-Arduino provides declarations to control each pin individually (`PIN_XX`)
-or all as a group (`PIN_IN` and `PIN_OUT`).
+or all pins as a group (`PIN_IN` and `PIN_OUT`).
 However, a pin must always be declared individually, even when using as a
 group.
 
@@ -125,7 +125,7 @@ end
 
 ### Group
 
-Whenever one of the pins `2`, `3` or `4` changes, copy its changed value to
+Whenever one of the pins `2`, `3`, or `4` changes, copy its changed value to
 pin `11`, `12`, or `13`, respectively:
 
 ```
