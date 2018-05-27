@@ -1,15 +1,17 @@
 # GPIO (General-Purpose Input/Output)
 
-A GPIO pin can be controlled as either an `input` or `output` digital pin:
-- Input pins are readable as `high` or `low`.
-- Output pins are writable as `high` or `low`.
+A GPIO pin can be controlled as either an `input` or `output` pin:
+- Input digital pins are readable as `high` or `low`.
+- Output digital pins are writable as `high` or `low`.
+- Some pins also support `PWM` output.
 
 In Céu-Arduino, a digital pin must be [declared][declaration] as either `input`
 or `output` external event, e.g.:
 
 ```
 input  high/low PIN_02;     // pin-2  is used as input
-output high/low PIN_13;     // pin-13 is used as output
+output high/low PIN_13;     // pin-13 is used as digital output
+output u8       PWM_06;     // pin-6  is used as PWM output
 ```
 
 A pin can be controlled by an [await][await] or [emit][emit] statement
@@ -26,6 +28,7 @@ An `emit` changes the state of the pin, e.g.:
 
 ```
 emit PIN_13(high);
+emit PWM_06(127);
 ```
 
 The state of a pin can be read at any time with `_digitalRead`, e.g.:
@@ -88,8 +91,8 @@ input (int, high/low) PIN_IN;
 
 ### PIN_XX
 
-An individual output pin is of type `high/low` and carries the new pin state to
-change, e.g.:
+An individual digital output pin is of type `high/low` and carries the new pin
+state to change, e.g.:
 
 ```
 output high/low PIN_13;
@@ -97,11 +100,20 @@ output high/low PIN_13;
 
 ### PIN_OUT
 
-A group output is of type `(int, high/low)` and carries the pin to change and
-its new state:
+A group digital output is of type `(int, high/low)` and carries the pin to
+change and its new state:
 
 ```
 output (int, high/low) PIN_OUT;
+```
+
+### PWM_XX
+
+An individual PWM output pin is of type `u8` and carries the new pin value to
+change, e.g.:
+
+```
+output u8 PWM_06;
 ```
 
 ## Examples
@@ -148,5 +160,28 @@ loop do
     var high/low v;
     (pin,v) = await PIN_IN;     // waits for changes on any of the input pins
     emit PIN_OUT(pin+9, v);     // copy new input value to associated output pin
+end
+```
+
+## PWM
+
+Fades `PIN_06` slowly from `0` to `255` and back to `0` continuously:
+
+```
+#include "gpio.ceu"
+#include "wclock.ceu"
+
+output u8 PWM_06;
+
+loop do
+    var int i;
+    loop i in [0->255] do
+        emit PWM_06(i);
+        await 5ms;
+    end
+    loop i in [0<-255] do
+        emit PWM_06(i);
+        await 5ms;
+    end
 end
 ```
