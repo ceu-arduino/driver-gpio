@@ -1,0 +1,15 @@
+#include "gpio.ceu"
+
+#include "pin_02.ceu"       // UNO
+#include "pin_03.ceu"       // UNO
+#include "pin_04.ceu"       // UNO
+//#include "pin_10.ceu"     // MEGA
+
+output high/low PIN_13;
+emit PIN_OUT(13, low);
+
+var int pin;
+var high/low v;
+every (pin,v) in PIN_IN do
+    emit PIN_OUT(13, v);
+end
