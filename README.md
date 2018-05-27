@@ -209,19 +209,19 @@ Fades `PIN_06` slowly from `0` to `255` and back to `0` continuously:
 
 ```
 #include "gpio.ceu"
-#include "wclock.ceu"
+#include "wclock.ceu"           // allows for `await 5ms` below
 
-output u8 PWM_06;
+output u8 PWM_06;               // declares `PWM_06` as PWM output
 
-loop do
+loop do                         // fades continuously
     var int i;
-    loop i in [0->255] do
-        emit PWM_06(i);
-        await 5ms;
+    loop i in [0->255] do       //   from 0->255
+        emit PWM_06(i);         //     set new value
+        await 5ms;              //     small delay
     end
-    loop i in [0<-255] do
-        emit PWM_06(i);
-        await 5ms;
+    loop i in [0<-255] do       //   from 0<-255
+        emit PWM_06(i);         //     set new value
+        await 5ms               //     small delay;
     end
 end
 ```
