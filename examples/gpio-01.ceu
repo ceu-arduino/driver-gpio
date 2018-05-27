@@ -8,7 +8,7 @@
 output high/low PIN_13;
 emit PIN_13(_digitalRead(2));
 
-var high/low v;
-every v in PIN_02 do
+loop do
+    var high/low v = await PIN_02;
     emit PIN_13(v);
 end

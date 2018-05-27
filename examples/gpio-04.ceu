@@ -1,0 +1,19 @@
+#include "gpio.ceu"     // already declares `PIN_IN` and `PIN_OUT`
+
+#include "pin_02.ceu"       // UNO
+#include "pin_03.ceu"       // UNO
+#include "pin_04.ceu"       // UNO
+
+output high/low PIN_11;
+output high/low PIN_12;
+output high/low PIN_13;
+
+emit PIN_11(_digitalRead(2));
+emit PIN_12(_digitalRead(3));
+emit PIN_13(_digitalRead(4));
+
+var int pin;
+var high/low v;
+every (pin,v) in PIN_IN do
+    emit PIN_OUT(pin+9, v);
+end
