@@ -10,7 +10,7 @@
 //#define PIN PIN_04
 //#define PIN PIN_10
 
-output on/off PIN_13;
+output high/low PIN_13;
 
 var bool v;
 every v in PIN do
