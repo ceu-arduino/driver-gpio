@@ -62,9 +62,9 @@ var high/low v = _digitalRead(13);
 
 Note that the state of `output` pins can also be read.
 
-[declaration]: http://fsantanna.github.io/ceu/out/manual/v0.30/storage_entities/#external-events
-[await]:       http://fsantanna.github.io/ceu/out/manual/v0.30/statements/#event
-[emit]:        http://fsantanna.github.io/ceu/out/manual/v0.30/statements/#events_1
+[declaration]: http://ceu-lang.github.io/ceu/out/manual/v0.30/storage_entities/#external-events
+[await]:       http://ceu-lang.github.io/ceu/out/manual/v0.30/statements/#event
+[emit]:        http://ceu-lang.github.io/ceu/out/manual/v0.30/statements/#events_1
 
 ## Includes
 
