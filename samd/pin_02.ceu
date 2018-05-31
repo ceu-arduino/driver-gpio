@@ -1,0 +1,32 @@
+input high/low PIN_02;
+
+#define GPIO_SAMD_PIN_02      14
+#define GPIO_SAMD_PIN_02_MASK (1<<GPIO_SAMD_PIN_02)
+
+#include "gpio_.ceu"
+
+{
+    ceu_assert(GPIO_SAMD_PIN_02 == EXTERNAL_INT_14, "bug found");
+    ceu_assert(EXTERNAL_INT_14 > EXTERNAL_INT_7,    "bug found");
+    ceu_assert((GPIO_SAMD_PIN_02 & 1) == 0,         "bug found");
+
+    pinMode(2, INPUT_PULLDOWN);
+
+    // variants/arduino_zero/variant.cpp
+    //  Port, Pin, PinType,     PinAttribute,       ADCChannelN,    PWMChannel, TCCChannel,   ExtInt
+    //{ PORTA, 14, PIO_DIGITAL, (PIN_ATTR_DIGITAL), No_ADC_Channel, NOT_ON_PWM, NOT_ON_TIMER, EXTERNAL_INT_14 },
+
+    EIC->WAKEUP.reg |= GPIO_SAMD_PIN_02_MASK;
+    {
+        u32 tmp = (PORT->Group[PORTA].PMUX[GPIO_SAMD_PIN_02 >> 1].reg) & PORT_PMUX_PMUXO(0xF) ;
+        PORT->Group[PORTA].PMUX[GPIO_SAMD_PIN_02 >> 1].reg = tmp|PORT_PMUX_PMUXE(PIO_EXTINT) ;
+        PORT->Group[PORTA].PINCFG[GPIO_SAMD_PIN_02].reg |= PORT_PINCFG_PMUXEN ;
+    }
+    {
+        u32 config = 1;
+        u32 pos = (GPIO_SAMD_PIN_02 - 8) << 2;
+        EIC->CONFIG[config].reg &=~ (EIC_CONFIG_SENSE0_Msk << pos);
+        EIC->CONFIG[config].reg |= EIC_CONFIG_SENSE0_BOTH_Val << pos;
+    }
+    EIC->INTENSET.reg = EIC_INTENSET_EXTINT(GPIO_SAMD_PIN_02_MASK);
+}
