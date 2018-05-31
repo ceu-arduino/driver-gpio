@@ -1,10 +1,12 @@
 #include "wclock.ceu"
 #include "gpio.ceu"
 
-#include "pin_02.ceu"       // UNO
+#include "pin_02.ceu"       // UNO/SAMD
 //#include "pin_03.ceu"       // UNO
 //#include "pin_04.ceu"       // UNO
-//#include "pin_10.ceu"     // MEGA
+//#include "pin_10.ceu"       // MEGA
+
+//#include "gpio_in.ceu"      // SAMD
 
 #define PIN PIN_02
 //#define PIN PIN_03

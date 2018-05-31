@@ -1,9 +1,9 @@
+#include "gpio.ceu"
+
 input high/low PIN_05;
 
 #define GPIO_SAMD_PIN_05      15
 #define GPIO_SAMD_PIN_05_MASK (1<<GPIO_SAMD_PIN_05)
-
-#include "gpio_.ceu"
 
 {
     ceu_assert(GPIO_SAMD_PIN_05 == EXTERNAL_INT_15, "bug found");
