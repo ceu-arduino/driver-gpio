@@ -1,99 +1,17 @@
 #ifndef GPIO_CEU
 #define GPIO_CEU
 
-input  (int,high/low) PIN_IN;
-output (int,high/low) PIN_OUT;
+output (int,high/low) PIN;
+//output high/low PIN_13;       // each pin may be declared as `output` individually
 
-// Also, each pin may be individually used as `input` or `output`.
-// An `output` pin must be declared first, e.g.:
-//  output high/low PIN_13;
-//  emit PIN_13(high);
-// An `input` pin must include a driver first:
-//  #include "pin_02.ceu"
-//  await PIN_02;
-
-#if 0
-output high/low PIN_XX;     // declare PIN_XX as output
-#endif
-
-// TODO: move to "pin_xx.ceu"
-#if 0
-                            // use PIN_XX as input
-#define PIN_00 do                                       \
-    var int pin_xxx;                                    \
-    var high/low v_xxx;                                 \
-    (pin_xxx,v_xxx) = await PIN_IN until pin_xxx==0;    \
-    escape v_xxx;                                       \
-end
-
-#define PIN_01 do                                       \
-    var int pin_xxx;                                    \
-    var high/low v_xxx;                                 \
-    (pin_xxx,v_xxx) = await PIN_IN until pin_xxx==1;    \
-    escape v_xxx;                                       \
-end
-
-#define PIN_05 do                                       \
-    var int pin_xxx;                                    \
-    var high/low v_xxx;                                 \
-    (pin_xxx,v_xxx) = await PIN_IN until pin_xxx==5;    \
-    escape v_xxx;                                       \
-end
-
-#define PIN_06 do                                       \
-    var int pin_xxx;                                    \
-    var high/low v_xxx;                                 \
-    (pin_xxx,v_xxx) = await PIN_IN until pin_xxx==6;    \
-    escape v_xxx;                                       \
-end
-
-#define PIN_07 do                                       \
-    var int pin_xxx;                                    \
-    var high/low v_xxx;                                 \
-    (pin_xxx,v_xxx) = await PIN_IN until pin_xxx==7;    \
-    escape v_xxx;                                       \
-end
-
-#define PIN_08 do                                       \
-    var int pin_xxx;                                    \
-    var high/low v_xxx;                                 \
-    (pin_xxx,v_xxx) = await PIN_IN until pin_xxx==8;    \
-    escape v_xxx;                                       \
-end
-
-#define PIN_09 do                                       \
-    var int pin_xxx;                                    \
-    var high/low v_xxx;                                 \
-    (pin_xxx,v_xxx) = await PIN_IN until pin_xxx==9;    \
-    escape v_xxx;                                       \
-end
-
-#define PIN_11 do                                       \
-    var int pin_xxx;                                    \
-    var high/low v_xxx;                                 \
-    (pin_xxx,v_xxx) = await PIN_IN until pin_xxx==1;    \
-    escape v_xxx;                                       \
-end
-
-#define PIN_12 do                                       \
-    var int pin_xxx;                                    \
-    var high/low v_xxx;                                 \
-    (pin_xxx,v_xxx) = await PIN_IN until pin_xxx==2;    \
-    escape v_xxx;                                       \
-end
-
-#define PIN_13 do                                       \
-    var int pin_xxx;                                    \
-    var high/low v_xxx;                                 \
-    (pin_xxx,v_xxx) = await PIN_IN until pin_xxx==3;    \
-    escape v_xxx;                                       \
-end
-#endif
+code/await Pin (var int pin) -> high/low;
 
 native/pos do
-    ##define ceu_callback_output_PIN_OUT(ps,trace) {            \\
-        tceu_output_PIN_OUT* ps_ = (tceu_output_PIN_OUT*) ps;   \\
-        digitalWrite(ps_->_1, ps_->_2);                         \\
+    // TODO: mudar p/ output
+    ##define ceu_callback_output_PIN(ps,trace) {        \\
+        tceu_output_PIN* ps_ = (tceu_output_PIN*) ps;   \\
+        pinMode(ps_->_1, OUTPUT);                       \\
+        digitalWrite(ps_->_1, ps_->_2);                 \\
     }
 
     ##define ceu_callback_output_PIN_00(ps,trace) digitalWrite( 0, *((bool*)ps))
@@ -128,6 +46,12 @@ native/pos do
 end
 
 {
+#if 0
+    for (int i=0; i<=13; i++) {
+        pinMode(i, INPUT);
+    }
+#endif
+
 ##ifdef _CEU_OUTPUT_PIN_00_
     pinMode( 0, OUTPUT);
 ##endif

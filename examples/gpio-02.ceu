@@ -1,22 +1,15 @@
 #include "wclock.ceu"
 #include "gpio.ceu"
 
-#include "pin_02.ceu"       // UNO/SAMD
-//#include "pin_03.ceu"       // UNO
-//#include "pin_04.ceu"       // UNO
-//#include "pin_10.ceu"       // MEGA
-
-//#include "gpio_in.ceu"      // SAMD
-
-#define PIN PIN_02
-//#define PIN PIN_03
-//#define PIN PIN_04
-//#define PIN PIN_10
+#define IN  2       // UNO/SAMD
+//#define IN  3       // UNO
+//#define IN  4       // UNO
+//#define IN 10       // MEGA
 
 output bool PIN_13;
 
 loop do
-    watching PIN do
+    watching Pin(IN) do
         var bool x = false;
         every 500ms do
             x = not x;
@@ -24,6 +17,6 @@ loop do
         end
     end
     await 500ms;     // debouncing
-    await PIN;
+    await Pin(IN);
     await 500ms;     // debouncing
 end
