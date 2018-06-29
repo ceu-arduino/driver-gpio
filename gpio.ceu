@@ -39,10 +39,10 @@ native/pos do
     ##define ceu_callback_output_PWM_07(ps,trace) analogWrite( 7, *((u8*)ps))
     ##define ceu_callback_output_PWM_08(ps,trace) analogWrite( 8, *((u8*)ps))
     ##define ceu_callback_output_PWM_09(ps,trace) analogWrite( 9, *((u8*)ps))
-    ##define ceu_callback_output_PWM_00(ps,trace) analogWrite(10, *((u8*)ps))
-    ##define ceu_callback_output_PWM_01(ps,trace) analogWrite(11, *((u8*)ps))
-    ##define ceu_callback_output_PWM_02(ps,trace) analogWrite(12, *((u8*)ps))
-    ##define ceu_callback_output_PWM_03(ps,trace) analogWrite(13, *((u8*)ps))
+    ##define ceu_callback_output_PWM_10(ps,trace) analogWrite(10, *((u8*)ps))
+    ##define ceu_callback_output_PWM_11(ps,trace) analogWrite(11, *((u8*)ps))
+    ##define ceu_callback_output_PWM_12(ps,trace) analogWrite(12, *((u8*)ps))
+    ##define ceu_callback_output_PWM_13(ps,trace) analogWrite(13, *((u8*)ps))
 end
 
 {
