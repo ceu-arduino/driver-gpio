@@ -14,6 +14,13 @@ native/pos do
         digitalWrite(ps_->_1, ps_->_2);                 \\
     }
 
+    // TODO: mudar p/ output
+    ##define ceu_callback_output_PWM(ps,trace) {        \\
+        tceu_output_PIN* ps_ = (tceu_output_PIN*) ps;   \\
+        pinMode(ps_->_1, OUTPUT);                       \\
+        analogWrite(ps_->_1, ps_->_2);                  \\
+    }
+
     ##define ceu_callback_output_PIN_00(ps,trace) digitalWrite( 0, *((bool*)ps))
     ##define ceu_callback_output_PIN_01(ps,trace) digitalWrite( 1, *((bool*)ps))
     ##define ceu_callback_output_PIN_02(ps,trace) digitalWrite( 2, *((bool*)ps))

@@ -2,6 +2,8 @@
 
 #define OUT 13
 #define IN   2      // UNO/ZERO
+//#define IN  3       // UNO
+//#define IN  4       // UNO
 //#define IN  10      // MEGA
 
 emit PIN(OUT, _digitalRead(IN));
