@@ -179,7 +179,7 @@ Return:
 
 ### Digital input/output
 
-Whenever *pin 2*` changes, copy its changed value to *pin 13*:
+Whenever *pin 2* changes, copy its changed value to *pin 13*:
 
 ```
 #include "gpio.ceu"
