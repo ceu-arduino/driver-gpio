@@ -33,13 +33,15 @@ code/await Pin (var int pin) -> high/low;
 
 ## Introduction
 
-A GPIO pin can be controlled as either an `input` or `output` pin:
+In Arduino, a GPIO pin can be controlled as either an input or output pin:
+
 - Input digital pins are readable as `high` or `low`.
 - Output digital pins are writable as `high` or `low`.
-- Some pins also support `PWM` output.
+- Some pins also support `PWM` output with values between `0` and `255`.
 
 In Céu-Arduino, output pins must be [declared][declaration] as `output`
 external events.
+
 A pin can be declared individually, e.g.:
 
 ```
@@ -105,7 +107,7 @@ None
 
 ### Outputs
 
-### PIN_XX
+#### PIN_XX
 
 An individual digital output pin carries its new state to change, e.g.:
 
@@ -117,7 +119,7 @@ Arguments:
 
 1. `high/low`: new state of the pin
 
-### PIN
+#### PIN
 
 A parameterized digital output and carries the pin to change and its new state:
 
@@ -130,7 +132,7 @@ Arguments:
 1. `int`:      pin to change
 2. `high/low`: its new state
 
-### PWM_XX
+#### PWM_XX
 
 An individual PWM output pin carries its new value to change, e.g.:
 
@@ -142,7 +144,7 @@ Arguments:
 
 1. `u8`: new value of the pin
 
-### PWM
+#### PWM
 
 A parameterized PWM output and carries the pin to change and its new state:
 
@@ -154,6 +156,24 @@ Arguments:
 
 1. `int`: pin to change
 2. `u8`:  new value of the pin
+
+### Abstractions
+
+#### Pin
+
+Receives an input pin and returns when the pin changes:
+
+```
+code/await Pin (var int pin) -> high/low;
+```
+
+Arguments:
+
+1. `int`: pin to await for a change
+
+Return:
+
+- `high/low`: new value of the pin
 
 ## Examples
 
