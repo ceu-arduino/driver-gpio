@@ -29,7 +29,7 @@ Arguments:
 Parameterized digital output carries the pin to change and its new state:
 
 ```
-output (int, high/low) OUT
+output (int, high/low) OUT;
 ```
 
 Arguments:
@@ -37,12 +37,14 @@ Arguments:
 1. `int`:      pin to change
 2. `high/low`: new state of the pin
 
-The individual pins to use must be declared with [`OUT_XX`](#OUT_XX) for proper
+The individual pins to use must be declared with [`OUT_XX`](#out_xx) for proper
 configuration.
 
 ## Examples
 
 ### Individual output
+
+Writes `high` to pin 13:
 
 ```
 #include "out.ceu"
@@ -55,6 +57,8 @@ await FOREVER;
 ```
 
 ### Parameterized output
+
+Writes `high` to pins 10-13:
 
 ```
 #include "out.ceu"
