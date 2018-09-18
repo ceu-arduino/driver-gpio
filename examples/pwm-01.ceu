@@ -1,17 +1,3 @@
-#include "gpio.ceu"
-#include "wclock.ceu"
+#include "pwm.ceu"
 
-output (int,u8) PWM;
-output u8       PWM_06;
-
-loop do
-    var int i;
-    loop i in [0->255] do
-        emit PWM_06(i);
-        await 5ms;
-    end
-    loop i in [0<-255] do
-        emit PWM(6, i);
-        await 5ms;
-    end
-end
+await Pwm(6, 127);
