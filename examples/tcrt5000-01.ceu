@@ -1,19 +1,10 @@
-#include "gpio.ceu"
-
-#include "pin_02.ceu"       // UNO
-//#include "pin_03.ceu"       // UNO
-//#include "pin_04.ceu"       // UNO
-//#include "pin_10.ceu"     // MEGA
-
-#define PIN PIN_02
-//#define PIN PIN_03
-//#define PIN PIN_04
-//#define PIN PIN_10
+#include "out.ceu"
+#include "int0.ceu"     // UNO=D2, MEGA=D21
 
 output high/low PIN_13;
 
-var bool v;
-every v in PIN do
-    emit PIN_13(not v);
+emit OUT_13(INT0_GET());
+every INT0 do
+    emit OUT_13(INT0_GET());
 end
 
