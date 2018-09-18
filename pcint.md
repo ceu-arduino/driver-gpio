@@ -39,7 +39,7 @@ MEGA   D53-D50       D0
 
 #### PCINT1_GET
 
-Gets the current state of the pin associated with the block.
+Gets the current state of the provided pin in the block.
 
 ```
 PCINTX_GET(pcint)       // `X` is a digit, e.g., `PCINT0_GET(_PCINT4)`
@@ -48,6 +48,22 @@ PCINTX_GET(pcint)       // `X` is a digit, e.g., `PCINT0_GET(_PCINT4)`
 Parameters:
 
 1. `pcint`: individual pin to query (e.g., `_PCINT4`)
+
+### Output
+
+#### PCINTX_ENABLE
+
+Enables or disables pin-change interrupts for the provided pin in the block.
+
+```
+output (on/off, int) PCINTX_ENABLE; // `X` is a digit, e.g., `PCINT0_ENABLE`
+```
+
+Parameters:
+
+1. `on/off`: enable or disable interrupts
+2. `int`:    individual pin to configure
+
 
 ### Inputs
 
@@ -78,6 +94,32 @@ emit PCINT0_ENABLE(_PCINT4);    // UNO=D12, MEGA=D10
 
 var high/low v = PCINT0_GET(_PCINT4);
 emit OUT_13(v);
+loop do
+    await PCINT0;
+    v = PCINT0_GET(_PCINT4);
+    emit OUT_13(v);
+end
+```
+
+### Enable / Disable
+
+Similar to previous example, but disables interrupts after `5` seconds:
+
+```
+#include "out.ceu"
+#include "wclock.ceu"
+#include "pcint0.ceu"
+
+output high/low OUT_13;
+
+spawn do
+    emit PCINT0(on, _PCINT4);   // UNO=D12, MEGA=D10
+    await 5s;
+    emit PCINT0(off, _PCINT4);  // UNO=D12, MEGA=D10
+end
+
+var high/low v = PCINT0_GET(_PCINT4);
+emit OUT(13, v);
 loop do
     await PCINT0;
     v = PCINT0_GET(_PCINT4);

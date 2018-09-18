@@ -1,9 +1,14 @@
 #include "out.ceu"
+#include "wclock.ceu"
 #include "pcint0.ceu"
 
 output high/low OUT_13;
 
-emit PCINT0_ENABLE(on, _PCINT4);   // UNO=D12, MEGA=D10
+spawn do
+    emit PCINT0_ENABLE(on, _PCINT4);   // UNO=D12, MEGA=D10
+    await 5s;
+    emit PCINT0_ENABLE(off, _PCINT4);  // UNO=D12, MEGA=D10
+end
 
 var high/low v = PCINT0_GET(_PCINT4);
 emit OUT(13, v);

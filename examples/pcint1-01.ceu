@@ -3,7 +3,7 @@
 
 output high/low OUT_13;
 
-emit PCINT1_ENABLE(_PCINT8);   // UNO=A0, MEGA=D0
+emit PCINT1_ENABLE(on, _PCINT8);   // UNO=A0, MEGA=D0
 
 var high/low v = PCINT1_GET(_PCINT8);
 emit OUT(13, v);

@@ -16,16 +16,18 @@ input none PCINT1;
 #error Board not supported.
 #endif
 
-output (int pcint) PCINT1_ENABLE do
-    {
-        bitClear(PCINT1_DDR, @pcint);  // input
-        bitSet(PCINT1_PORT, @pcint);   // pullup
-        bitSet(PCMSK1, @pcint);  // interrupt enable
-    }
-end
-
-output (int pcint) PCINT1_DISABLE do
-    { bitClear(PCMSK1, @pcint); }
+output (on/off v, int pcint) PCINT1_ENABLE do
+    if v then
+        {
+            bitClear(PCINT1_DDR, @pcint);  // input
+            bitSet(PCINT1_PORT, @pcint);   // pullup
+            bitSet(PCMSK1, @pcint);  // interrupt enable
+        }
+    else
+        {
+            bitClear(PCMSK1, @pcint);
+        }
+    end
 end
 
 #define PCINT1_GET(pcint) (_bitRead({PCINT1_PIN}, pcint) as bool)

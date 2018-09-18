@@ -4,16 +4,18 @@ input none PCINT0;
 // Uno:  D8-D13
 // Mega: D53-D50, D10-D13
 
-output (int pcint) PCINT0_ENABLE do
-    {
-        bitClear(DDRB, @pcint);  // input
-        bitSet(PORTB, @pcint);   // pullup
-        bitSet(PCMSK0, @pcint);  // interrupt enable
-    }
-end
-
-output (int pcint) PCINT0_DISABLE do
-    { bitClear(PCMSK0, @pcint); }
+output (on/off v, int pcint) PCINT0_ENABLE do
+    if v then
+        {
+            bitClear(DDRB, @pcint);  // input
+            bitSet(PORTB, @pcint);   // pullup
+            bitSet(PCMSK0, @pcint);  // interrupt enable
+        }
+    else
+        {
+            bitClear(PCMSK0, @pcint);
+        }
+    end
 end
 
 #define PCINT0_GET(pcint) (_bitRead({PINB}, pcint) as bool)
