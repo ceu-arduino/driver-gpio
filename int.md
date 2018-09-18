@@ -43,7 +43,7 @@ input none INTX;        // `X` is a digit, e.g., `INT0`
 
 ### Input / Output
 
-State of output pin 13 follows the state of pin associated with *int0*:
+State of output pin 13 follows the state of pin associated with *INT0*:
 
 ```
 #include "out.ceu"

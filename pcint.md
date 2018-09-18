@@ -20,14 +20,12 @@ Pin mapping in popular Arduinos:
 UNO     D8-D12       A0-A5
 MEGA   D53-D50       D0
        D10-D13     D15,D14
-
 ```
 
-In the `UNO`, the pin `PCINT2` is associated with interrupt `PCINT0` and
-corresponds to pin `D10`.
-
-In the `MEGA`, the pin `PCINT8` is associated with interrupt `PCINT1` and
-corresponds to pin `D0`.
+- In the `UNO`, the pin `PCINT2` is associated with interrupt `PCINT0` and
+  corresponds to pin `D10`.
+- In the `MEGA`, the pin `PCINT8` is associated with interrupt `PCINT1` and
+  corresponds to pin `D0`.
 
 ## API
 
@@ -66,7 +64,7 @@ input none PCINTX;      // `X` is a digit, e.g., `PCINT0`
 
 ### Input / Output
 
-State of output pin 13 follows the state of pin associated with *pcint4*:
+State of output pin 13 follows the state of pin associated with *PCINT4*:
 
 ```
 #include "out.ceu"
