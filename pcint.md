@@ -50,7 +50,6 @@ Parameters:
 1. `on/off`: enable or disable interrupts
 2. `int`:    individual pin to configure
 
-
 #### PCINTX_GET
 
 Gets the current state of the provided pin in the block.
