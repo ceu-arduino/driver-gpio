@@ -1,0 +1,14 @@
+#include "out.ceu"
+#include "pcint0.ceu"
+
+output high/low OUT_13;
+
+emit PCINT0_ENABLE({PCINT4});   // UNO=D12, MEGA=D10
+
+var high/low v = PCINT0_GET({PCINT4});
+emit OUT(13, v);
+loop do
+    await PCINT0;
+    v = PCINT0_GET({PCINT4});
+    emit OUT_13(v);
+end

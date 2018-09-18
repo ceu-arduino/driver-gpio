@@ -1,0 +1,41 @@
+input none PCINT1;
+
+// PORT 1/C
+// Uno:  A0-A5
+// Mega: D0,D15,D14
+
+#if   defined(ARDUINO_BOARD_UNO)
+#define PCINT1_DDR  DDRC
+#define PCINT1_PORT PORTC
+#define PCINT1_PIN  PINC
+#elif defined(ARDUINO_BOARD_MEGA)
+#define PCINT1_DDR  DDRE
+#define PCINT1_PORT PORTE
+#define PCINT1_PIN  PINE
+#else
+#error Board not supported.
+#endif
+
+output (int pcint) PCINT1_ENABLE do
+    {
+        bitClear(PCINT1_DDR, @pcint);  // input
+        bitSet(PCINT1_PORT, @pcint);   // pullup
+        bitSet(PCMSK1, @pcint);  // interrupt enable
+    }
+end
+
+output (int pcint) PCINT1_DISABLE do
+    { bitClear(PCMSK1, @pcint); }
+end
+
+#define PCINT1_GET(pcint) (_bitRead({PCINT1_PIN}, pcint) as bool)
+
+native/const _PCINT1_vect;
+
+{
+    bitSet(PCICR,  PCIE1);  // enables port 1
+}
+
+spawn async/isr [_PCINT1_vect, 0] do
+    emit PCINT1;
+end
