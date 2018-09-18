@@ -1,0 +1,10 @@
+#include "int1.ceu"
+#include "gpio.ceu"
+
+var high/low v = _digitalRead(INT1_PIN);
+emit PIN(13, v);
+loop do
+    await INT1;
+    v = _digitalRead(INT1_PIN);
+    emit PIN(13, v);
+end
