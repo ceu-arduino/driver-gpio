@@ -28,7 +28,9 @@ Gets the current state of the pin.
 INTX_GET()              // `X` is a digit, e.g., `INT0_GET()`
 ```
 
-### Input
+### Inputs
+
+#### INTX
 
 ```
 input none INTX;        // `X` is a digit, e.g., `INT0`

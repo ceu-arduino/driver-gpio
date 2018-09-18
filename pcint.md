@@ -49,7 +49,9 @@ Parameters:
 
 1. `pcint`: individual pin to query (e.g., `{PCINT4}`)
 
-### Input
+### Inputs
+
+#### PCINTX
 
 ```
 input none PCINTX;      // `X` is a digit, e.g., `PCINT0`
