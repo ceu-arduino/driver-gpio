@@ -39,8 +39,8 @@ code/await Pwm (int, u8) -> NEVER;
 
 Arguments:
 
-1. `int`:      pin to change
-2. `high/low`: new value of the pin
+1. `int`: pin to change
+2. `u8`:  new value of the pin
 
 Return:
 
