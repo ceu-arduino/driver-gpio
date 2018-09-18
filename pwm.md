@@ -14,13 +14,13 @@
 
 #### PWM
 
-Parameterized PWM output carries the pin to change and its new value:
+Sets the value of a parameterized PWM pin.
 
 ```
 output (int, u8) PWM;
 ```
 
-Arguments:
+Parameters:
 
 1. `int`: pin to change
 2. `u8`:  new value of the pin
@@ -31,13 +31,13 @@ Arguments:
 
 #### Pwm
 
-Parameterized PWM output carries the pin to change and its new value:
+Sets the value of a parameterized PWM pin.
 
 ```
 code/await Pwm (int, u8) -> NEVER;
 ```
 
-Arguments:
+Parameters:
 
 1. `int`: pin to change
 2. `u8`:  new value of the pin

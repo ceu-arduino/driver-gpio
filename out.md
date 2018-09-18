@@ -14,31 +14,31 @@ Output digital pins are writable as `high` or `low`.
 
 #### OUT_XX
 
-An individual digital output pin carries its new state to change, e.g.:
+Sets the state of an individual output pin.
 
 ```
-output high/low PIN_13;
+output high/low OUT_XX;     // `XX` is a number, e.g., `OUT_13`
 ```
 
-Arguments:
+Parameters:
 
 1. `high/low`: new state of the pin
 
 #### OUT
 
-Parameterized digital output carries the pin to change and its new state:
+Sets the state of a parameterized output pin.
 
 ```
 output (int, high/low) OUT;
 ```
 
-Arguments:
+Parameters:
 
 1. `int`:      pin to change
 2. `high/low`: new state of the pin
 
-The individual pins to use must be declared with [`OUT_XX`](#out_xx) for proper
-configuration.
+The individual pins to use must also be declared with [`OUT_XX`](#out_xx) for
+proper configuration.
 
 ## Examples
 
