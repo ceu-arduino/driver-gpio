@@ -60,7 +60,7 @@ emit PWM(6, 128);
 await FOREVER;
 ```
 
-*NOTE: Compile with `CEU_DEFS=-DCEU_PM_MIN` to disable the power manager.*
+*NOTE: Compile with `CEU_DEFS=-DCEU_PM_MIN` to disable the power manager. (Use [Pwm](#pwm-1) instead.)*
 
 ### Code abstraction
 

@@ -22,10 +22,10 @@ MEGA     D21     D20
 
 #### INTX_GET
 
-Returns the current state of the pin.
+Gets the current state of the pin.
 
 ```
-INTX_GET()              // `X` is a digite, e.g., `INT0_GET()`
+INTX_GET()              // `X` is a digit, e.g., `INT0_GET()`
 ```
 
 ### Input
@@ -43,7 +43,7 @@ input none INTX;        // `X` is a digit, e.g., `INT0`
 
 ### Input / Output
 
-State of output pin 13 follows the state of pin int0:
+State of output pin 13 follows the state of pin associated with *int0*:
 
 ```
 #include "out.ceu"
