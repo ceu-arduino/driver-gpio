@@ -30,7 +30,9 @@ output (on/off v, int pcint) PCINT1_ENABLE do
     end
 end
 
-#define PCINT1_GET(pcint) (_bitRead({PCINT1_PIN}, pcint) as bool)
+output (int pcint, &high/low v) PCINT1_GET do
+    v = _bitRead({PCINT1_PIN}, pcint) as bool;
+end
 
 native/const _PCINT1_vect;
 

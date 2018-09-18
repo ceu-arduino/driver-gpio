@@ -8,13 +8,9 @@ input none INT0;
 #error Board not supported.
 #endif
 
-#define INT0_GET() (_digitalRead(INT0_PIN) as high/low)
-
-#if 0
 output (&high/low v) INT0_GET do
     v = _digitalRead(INT0_PIN) as high/low;
 end
-#endif
 
 native/const _INT0_vect;
 

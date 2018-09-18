@@ -5,10 +5,12 @@ output high/low OUT_13;
 
 emit PCINT0_ENABLE(on, _PCINT4);   // UNO=D12, MEGA=D10
 
-var high/low v = PCINT0_GET(_PCINT4);
+var high/low v = _;
+emit PCINT0_GET(_PCINT4, &v);
 emit OUT(13, v);
+
 loop do
     await PCINT0;
-    v = PCINT0_GET(_PCINT4);
+    emit PCINT0_GET(_PCINT4, &v);
     emit OUT_13(v);
 end

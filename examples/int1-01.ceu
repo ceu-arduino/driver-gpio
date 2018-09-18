@@ -3,10 +3,12 @@
 
 output high/low OUT_13;
 
-var high/low v = INT1_GET();
+var high/low v = _;
+emit INT1_GET(&v);
 emit OUT(13, v);
+
 loop do
     await INT1;
-    v = INT1_GET();
+    emit INT1_GET(&v);
     emit OUT_13(v);
 end

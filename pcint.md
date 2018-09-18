@@ -35,20 +35,6 @@ MEGA   D53-D50       D0
 #include "pcintX.ceu"   // `X` is a digit, e.g., `pcint0.ceu`
 ```
 
-### Macros
-
-#### PCINT1_GET
-
-Gets the current state of the provided pin in the block.
-
-```
-PCINTX_GET(pcint)       // `X` is a digit, e.g., `PCINT0_GET(_PCINT4)`
-```
-
-Parameters:
-
-1. `pcint`: individual pin to query (e.g., `_PCINT4`)
-
 ### Output
 
 #### PCINTX_ENABLE
@@ -64,6 +50,19 @@ Parameters:
 1. `on/off`: enable or disable interrupts
 2. `int`:    individual pin to configure
 
+
+#### PCINTX_GET
+
+Gets the current state of the provided pin in the block.
+
+```
+output (int, &high/low) PCINTX_GET; // `X` is a digit, e.g., `PCINT0_GET`
+```
+
+Parameters:
+
+1. `int`:       individual pin to query (e.g., `_PCINT4`)
+2. `&high/low`: reference to write the value
 
 ### Inputs
 

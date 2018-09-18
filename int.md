@@ -18,15 +18,19 @@ MEGA     D21     D20
 #include "intX.ceu"     // `X` is a digit, e.g., `int0.ceu`
 ```
 
-### Macros
+### Outputs
 
 #### INTX_GET
 
 Gets the current state of the pin.
 
 ```
-INTX_GET()              // `X` is a digit, e.g., `INT0_GET()`
+output &high/low INTX_GET;  // `X` is a digit, e.g., `INT0_GET`
 ```
+
+Parameters:
+
+1. `&high/low`: reference to write the value
 
 ### Inputs
 
