@@ -47,7 +47,7 @@ State of output pin 13 follows the state of pin associated with *int0*:
 
 ```
 #include "out.ceu"
-#include "int0.ceu"
+#include "int0.ceu"     // UNO=D2, MEGA=D21
 
 output high/low OUT_13;
 
