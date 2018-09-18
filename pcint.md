@@ -42,12 +42,12 @@ MEGA   D53-D50       D0
 Gets the current state of the pin associated with the block.
 
 ```
-PCINTX_GET(pcint)       // `X` is a digit, e.g., `PCINT0_GET({PCINT4})`
+PCINTX_GET(pcint)       // `X` is a digit, e.g., `PCINT0_GET(_PCINT4)`
 ```
 
 Parameters:
 
-1. `pcint`: individual pin to query (e.g., `{PCINT4}`)
+1. `pcint`: individual pin to query (e.g., `_PCINT4`)
 
 ### Inputs
 
@@ -74,13 +74,13 @@ State of output pin 13 follows the state of pin associated with *PCINT4*:
 
 output high/low OUT_13;
 
-emit PCINT0_ENABLE({PCINT4});   // UNO=D12, MEGA=D10
+emit PCINT0_ENABLE(_PCINT4);    // UNO=D12, MEGA=D10
 
-var high/low v = PCINT0_GET({PCINT4});
+var high/low v = PCINT0_GET(_PCINT4);
 emit OUT_13(v);
 loop do
     await PCINT0;
-    v = PCINT0_GET({PCINT4});
+    v = PCINT0_GET(_PCINT4);
     emit OUT_13(v);
 end
 ```
