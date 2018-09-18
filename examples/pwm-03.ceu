@@ -1,7 +1,14 @@
-// compile with CEU_DEFS=-DCEU_PM_MIN
-
 #include "pwm.ceu"
+#include "wclock.ceu"
 
-emit PWM(6, 128);
-
-await FOREVER;
+loop do
+    var int i;
+    loop i in [0->255] do
+        spawn Pwm(6, i);
+        await 5ms;
+    end
+    loop i in [0<-255] do
+        spawn Pwm(6, i);
+        await 5ms;
+    end
+end

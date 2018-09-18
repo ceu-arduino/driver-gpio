@@ -1,14 +1,3 @@
 #include "pwm.ceu"
-#include "wclock.ceu"
 
-loop do
-    var int i;
-    loop i in [0->255] do
-        spawn Pwm(6, i);
-        await 5ms;
-    end
-    loop i in [0<-255] do
-        spawn Pwm(6, i);
-        await 5ms;
-    end
-end
+await Pwm(6, 128);
