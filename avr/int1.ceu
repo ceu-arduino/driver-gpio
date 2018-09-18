@@ -8,7 +8,7 @@ input none INT1;
 #error Board not supported.
 #endif
 
-#define INT1_GET() (_digitalRead(INT1_PIN) as bool)
+#define INT1_GET() (_digitalRead(INT1_PIN) as high/low)
 
 native/const _INT1_vect;
 
