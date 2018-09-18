@@ -47,8 +47,8 @@ output (on/off, int) PCINTX_ENABLE; // `X` is a digit, e.g., `PCINT0_ENABLE`
 
 Parameters:
 
-1. `on/off`: enable or disable interrupts
-2. `int`:    individual pin to configure
+- `on/off`: enable or disable interrupts
+- `int`:    individual pin to configure
 
 #### PCINTX_GET
 
@@ -60,8 +60,8 @@ output (int, &high/low) PCINTX_GET; // `X` is a digit, e.g., `PCINT0_GET`
 
 Parameters:
 
-1. `int`:       individual pin to query (e.g., `_PCINT4`)
-2. `&high/low`: reference to write the value
+- `int`:       individual pin to query (e.g., `_PCINT4`)
+- `&high/low`: reference to write the value
 
 ### Inputs
 

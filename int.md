@@ -30,7 +30,7 @@ output &high/low INTX_GET;  // `X` is a digit, e.g., `INT0_GET`
 
 Parameters:
 
-1. `&high/low`: reference to write the value
+- `&high/low`: reference to write the value
 
 ### Inputs
 
