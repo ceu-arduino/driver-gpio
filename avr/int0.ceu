@@ -1,0 +1,21 @@
+input none INT0;
+
+#if   defined(ARDUINO_BOARD_UNO)
+#define INT0_PIN 2
+#elif defined(ARDUINO_BOARD_MEGA)
+#define INT0_PIN 21
+#else
+#error Board not supported.
+#endif
+
+native/const _INT0_vect;
+
+{
+    pinMode(INT0_PIN, INPUT_PULLUP);
+    EICRA = (EICRA & ~((1<<ISC00) | (1<<ISC01))) | (CHANGE << ISC00);
+    EIMSK |= (1 << INT0);
+}
+
+spawn async/isr [_INT0_vect] do
+    emit INT0;
+end
