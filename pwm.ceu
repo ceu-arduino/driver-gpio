@@ -21,7 +21,11 @@ On a MEGA you have 6 timers but 15 PWM pins (PWM: 2 to 13 and 44 to 46) , they a
 
 var u8 pwm_refs = 0;
 
-code/await Pwm (var int pin, var int v) -> NEVER do
+output (int pin, u8 v) PWM do
+    _analogWrite(pin, v);
+end
+
+code/await Pwm (var int pin, var u8 v) -> NEVER do
     {
         ceu_pm_inc(CEU_PM_TIMER0, 1);
         ceu_pm_inc(CEU_PM_TIMER1, 1);
@@ -45,7 +49,7 @@ code/await Pwm (var int pin, var int v) -> NEVER do
         }
     end
 
-    _analogWrite(pin, v);
+    emit PWM(pin, v);
     await FOREVER;
 end
 
