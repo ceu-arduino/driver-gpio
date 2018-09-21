@@ -3,14 +3,10 @@
 
 output high/low OUT_13;
 
-emit PCINT1_ENABLE(on, _PCINT8);   // UNO=A0, MEGA=D0
+call PCINT1_Enable(_PCINT8, on);   // UNO=A0, MEGA=D0
 
-var high/low v = _;
-emit PCINT1_GET(_PCINT8, &v);
-emit OUT(13, v);
+emit OUT(13, call PCINT1_Get(_PCINT8));
 
-loop do
-    await PCINT1;
-    emit PCINT1_GET(_PCINT8, &v);
-    emit OUT_13(v);
+every PCINT1 do
+    emit OUT(13, call PCINT1_Get(_PCINT8));
 end

@@ -16,12 +16,12 @@ input none PCINT1;
 #error Board not supported.
 #endif
 
-output (on/off v, int pcint) PCINT1_ENABLE do
+code/call PCINT1_Enable (var int pcint, var on/off v) -> none do
     if v then
         {
-            bitClear(PCINT1_DDR, @pcint);  // input
-            bitSet(PCINT1_PORT, @pcint);   // pullup
-            bitSet(PCMSK1, @pcint);  // interrupt enable
+            bitClear(PCINT1_DDR, @pcint);   // input
+            bitSet(PCINT1_PORT, @pcint);    // pullup
+            bitSet(PCMSK1, @pcint);         // interrupt enable
         }
     else
         {
@@ -30,8 +30,8 @@ output (on/off v, int pcint) PCINT1_ENABLE do
     end
 end
 
-output (int pcint, &high/low v) PCINT1_GET do
-    v = _bitRead({PCINT1_PIN}, pcint) as bool;
+code/call PCINT1_Get (var int pcint) -> high/low do
+    escape _bitRead({PCINT1_PIN}, pcint) as high/low;
 end
 
 native/const _PCINT1_vect;
@@ -44,22 +44,20 @@ spawn async/isr [_PCINT1_vect, 0] do
     emit PCINT1;
 end
 
-code/call PCINT1_Read (none) -> u8 do
-    var u8 cur = 0;
-    var int bit;
-    loop bit in [_PCINT8 -> _PCINT14] do    // TODO: _PCINT15 not available on UNO?
-        var high/low v = _;
-        emit PCINT1_GET(bit, &v);
-        _bitWrite(cur, bit, v);
+code/await PCINT1_Demux (none) -> (event (int,high/low) e) -> NEVER do
+    code/call Read (none) -> u8 do
+        var u8 cur = 0;
+        var int bit;
+        loop bit in [_PCINT8 -> _PCINT14] do    // TODO: _PCINT15 not available on UNO?
+            _bitWrite(cur, bit, call PCINT1_Get(bit));
+        end
+        escape cur;
     end
-    escape cur;
-end
 
-code/await PCINT1_One (none) -> (event (int,high/low) e) -> NEVER do
-    var u8 old = call PCINT1_Read();
+    var u8 old = call Read();
     loop do
         await PCINT1;
-        var u8 cur = call PCINT1_Read();
+        var u8 cur = call Read();
         var u8 dif = cur ^ old;
         old = cur;
         var int bit;

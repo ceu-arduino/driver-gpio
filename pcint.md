@@ -27,54 +27,86 @@ MEGA   D53-D50       D0
 - In the `MEGA`, the pin `PCINT8` is associated with interrupt `PCINT1` and
   corresponds to pin `D0`.
 
+The `X` in all occurrences of `PCINTX` or `pcintX` is a placeholder for a digit
+that refers to a block of pins.
+
 ## API
 
 ### Includes
 
 ```
-#include "pcintX.ceu"   // `X` is a digit, e.g., `pcint0.ceu`
+#include "pcintX.ceu"
 ```
-
-### Output
-
-#### PCINTX_ENABLE
-
-Enables or disables pin-change interrupts for the provided pin in the block.
-
-```
-output (on/off, int) PCINTX_ENABLE; // `X` is a digit, e.g., `PCINT0_ENABLE`
-```
-
-Parameters:
-
-- `on/off`: enable or disable interrupts
-- `int`:    individual pin to configure
-
-#### PCINTX_GET
-
-Gets the current state of the provided pin in the block.
-
-```
-output (int, &high/low) PCINTX_GET; // `X` is a digit, e.g., `PCINT0_GET`
-```
-
-Parameters:
-
-- `int`:       individual pin to query (e.g., `_PCINT4`)
-- `&high/low`: reference to write the value
 
 ### Inputs
 
 #### PCINTX
 
 ```
-input none PCINTX;      // `X` is a digit, e.g., `PCINT0`
+input none PCINTX;
 ```
 
 - Occurrences:
     - whenever the state of the any of the pins in the block changes
 - Payload:
     - `none`
+
+### Code Abstractions
+
+#### PCINTX_Enable
+
+Enables or disables pin-change interrupts for the provided pin in the block.
+
+```
+code/call PCINTX_Enable (var int pcint, var on/off v) -> none;
+```
+
+Parameters:
+
+- `int`:    individual pin to configure
+- `on/off`: enable or disable interrupts
+
+Return:
+
+- `none`
+
+#### PCINTX_Get
+
+Gets the current state of the provided pin in the block.
+
+```
+code/call PCINTX_Get (var int pcint) -> high/low do
+```
+
+Parameters:
+
+- `int`: individual pin to query (e.g., `_PCINT4`)
+
+Return:
+
+- `high/low`: current state of the pin
+
+#### PCINTX_Demux
+
+Demultiplexes pin-change block interrupts into specific pin events.
+
+```
+code/await PCINTX_Demux (none) -> (event (int,high/low) e) -> NEVER;
+```
+
+Parameters:
+
+- `none`
+
+Public fields:
+
+- `event (int,high/low)`: triggered on block interrupts carrying the specific changed pin and its new state
+
+Return:
+
+- `NEVER`: never returns
+
+*NOTE: Pins must be [enabled](#pcintx_enable) individually.*
 
 ## Examples
 
