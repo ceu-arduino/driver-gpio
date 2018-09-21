@@ -37,7 +37,9 @@ code/await PCINT0_Demux (none) -> (event (int,high/low) e) -> NEVER do
         var u8 cur = 0;
         var int bit;
         loop bit in [_PCINT0 -> _PCINT7] do
-            _bitWrite(cur, bit, call PCINT0_Get(bit));
+            if _bitRead({PCMSK0},bit) == 1 then
+                _bitWrite(cur, bit, call PCINT0_Get(bit));
+            end
         end
         escape cur;
     end

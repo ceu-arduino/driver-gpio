@@ -49,7 +49,9 @@ code/await PCINT1_Demux (none) -> (event (int,high/low) e) -> NEVER do
         var u8 cur = 0;
         var int bit;
         loop bit in [_PCINT8 -> _PCINT14] do    // TODO: _PCINT15 not available on UNO?
-            _bitWrite(cur, bit, call PCINT1_Get(bit));
+            if _bitRead({PCMSK1},bit) == 1 then
+                _bitWrite(cur, bit, call PCINT1_Get(bit));
+            end
         end
         escape cur;
     end
