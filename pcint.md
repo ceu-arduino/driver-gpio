@@ -120,20 +120,20 @@ State of output pin 13 follows the state of pin associated with *PCINT4*:
 
 output high/low OUT_13;
 
-emit PCINT0_ENABLE(_PCINT4);    // UNO=D12, MEGA=D10
+call PCINT0_Enable(_PCINT4, on);   // UNO=D12, MEGA=D10
 
-var high/low v = PCINT0_GET(_PCINT4);
-emit OUT_13(v);
+emit OUT(13, call PCINT0_Get(_PCINT4));
+
 loop do
     await PCINT0;
-    v = PCINT0_GET(_PCINT4);
-    emit OUT_13(v);
+    emit OUT(13, call PCINT0_Get(_PCINT4));
 end
 ```
 
 ### Enable / Disable
 
-Similar to previous example, but disables interrupts after `5` seconds:
+Similar to previous example, but switches interrupts on and off every `4`
+seconds:
 
 ```
 #include "out.ceu"
@@ -143,16 +143,42 @@ Similar to previous example, but disables interrupts after `5` seconds:
 output high/low OUT_13;
 
 spawn do
-    emit PCINT0(on, _PCINT4);   // UNO=D12, MEGA=D10
-    await 5s;
-    emit PCINT0(off, _PCINT4);  // UNO=D12, MEGA=D10
+    loop do
+        call PCINT0_Enable(_PCINT4, on);   // UNO=D12, MEGA=D10
+        await 4s;
+        call PCINT0_Enable(_PCINT4, off);  // UNO=D12, MEGA=D10
+        await 4s;
+    end
 end
 
-var high/low v = PCINT0_GET(_PCINT4);
-emit OUT(13, v);
+emit OUT(13, call PCINT0_Get(_PCINT4));
+
 loop do
     await PCINT0;
-    v = PCINT0_GET(_PCINT4);
-    emit OUT_13(v);
+    emit OUT(13, call PCINT0_Get(_PCINT4));
+end
+```
+
+### Demux
+
+Similar to the first example but uses demux to handle events:
+
+```
+#include "out.ceu"
+#include "pcint1.ceu"
+
+output high/low OUT_13;
+
+call PCINT1_Enable(_PCINT8, on);   // UNO=A0, MEGA=D0
+
+var& PCINT1_Demux pcint1 = spawn PCINT1_Demux();
+
+emit OUT(13, call PCINT1_Get(_PCINT8));
+
+loop do
+    var int pin;
+    var high/low v;
+    (pin,v) = await pcint1.e until (pin == _PCINT8);
+    emit OUT(13, v);
 end
 ```
