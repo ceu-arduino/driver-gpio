@@ -18,20 +18,6 @@ MEGA     D21     D20
 #include "intX.ceu"     // `X` is a digit, e.g., `int0.ceu`
 ```
 
-### Outputs
-
-#### INTX_GET
-
-Gets the current state of the pin.
-
-```
-output &high/low INTX_GET;  // `X` is a digit, e.g., `INT0_GET`
-```
-
-Parameters:
-
-- `&high/low`: reference to write the value
-
 ### Inputs
 
 #### INTX
@@ -44,6 +30,24 @@ input none INTX;        // `X` is a digit, e.g., `INT0`
     - whenever the state of the pin changes
 - Payload:
     - `none`
+
+## Code Abstractions
+
+#### INTX_Get
+
+Gets the current state of the pin.
+
+```
+code/call PCINTX_Get (none) -> high/low do
+```
+
+Parameters:
+
+- `none`
+
+Return:
+
+- `high/low`: current state of the pin
 
 ## Examples
 
