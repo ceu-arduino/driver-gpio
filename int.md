@@ -61,12 +61,12 @@ State of output pin 13 follows the state of pin associated with *INT0*:
 
 output high/low OUT_13;
 
-var high/low v = INT0_GET();
+var high/low v = call INT0_Get();
 emit OUT_13(v);
 
 loop do
     await INT0;
-    v = INT0_GET();
+    v = call INT0_Get();
     emit OUT_13(v);
 end
 ```
