@@ -38,7 +38,7 @@ input none INTX;        // `X` is a digit, e.g., `INT0`
 Gets the current state of the pin.
 
 ```
-code/call PCINTX_Get (none) -> high/low do
+code/call INTX_Get (none) -> high/low do
 ```
 
 Parameters:
