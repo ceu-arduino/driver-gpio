@@ -1,6 +1,6 @@
 input none INT0;
 
-#if   defined(ARDUINO_BOARD_UNO)
+#if   defined(ARDUINO_BOARD_UNO) || defined(ARDUINO_BOARD_PRO)
 #define INT0_PIN 2
 #elif defined(ARDUINO_BOARD_MEGA)
 #define INT0_PIN 21
